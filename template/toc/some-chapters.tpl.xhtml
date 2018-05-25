@@ -1,0 +1,17 @@
+{% include 'toc/header.tpl.xhtml' without context %}
+
+{% set index = [1] %}
+{% for value in toc %}
+{% if value is string %}
+		<p class="chapter"><a href = "{{ index[0] }}.xhtml">{{ value }}</a></p>
+{% elif value is sequence %}
+{% for subtitle in value %}
+		<p class="subtitle"><a href="{{ index[0] }}.xhtml">{{ subtitle }}</a></p>
+{% set _ = index.append(index.pop() + 1) %}
+{% endfor %}
+		<p><br/></p>
+{% endif %}
+{% endfor %}
+	</div>
+</body>
+</html>

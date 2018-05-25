@@ -1,0 +1,40 @@
+@charset "UTF-8";
+@import "style-reset.css";
+
+
+/* global */
+.hltr {
+  -webkit-writing-mode: horizontal-tb;
+  -epub-writing-mode:   horizontal-tb;
+}
+.vrtl {
+  -webkit-writing-mode: vertical-rl;
+  -epub-writing-mode:   vertical-rl;
+}
+
+
+
+/* titlepage */
+.titlepage {
+  text-align: center;
+}
+.titlepage .title {
+	font-size: 2em;
+}
+
+/* table of contents*/
+.subtitle {
+  text-indent: 1em;
+}
+
+
+/* episode*/
+.episode .title {
+	font-size: 1.5em;
+}
+.paragraph.serif {
+  text-indent: 0.5em;
+}
+.paragraph.land-sentence {
+  text-indent: 1em;
+}

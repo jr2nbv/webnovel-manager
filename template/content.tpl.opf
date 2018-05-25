@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="ja" unique-identifier="unique-id" prefix="ebpaj: http://www.ebpaj.jp/">
+
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+		<!-- 作品名 -->
+		<dc:title id="title">{{ title }}</dc:title>
+		<meta refines="#title" property="file-as">セイレツヨウサクヒンメイカナ01</meta>
+
+		<!-- 著者名 -->
+		<dc:creator id="creator01">{{ writer }}</dc:creator>
+		<meta refines="#creator01" property="file-as">セイレツヨウチョサクシャメイカナ01</meta>
+
+		<!-- 出版社名 -->
+		<dc:publisher id="publisher">{{ publisher }}</dc:publisher>
+		<meta refines="#publisher" property="file-as">ニホンデンシシュッパンシャキョウカイ</meta>
+
+		<!-- 言語 -->
+		<dc:language>ja</dc:language>
+
+		<!-- ファイルid -->
+		<dc:identifier id="unique-id">urn:uuid:10e4df02-5ec5-45d7-9c44-31858bf99644</dc:identifier>
+
+		<!-- 更新日 -->
+		<meta property="dcterms:modified">2015-11-01T00:00:00Z</meta>
+
+		<!-- etc. -->
+		<meta property="ebpaj:guide-version">1.1.3</meta>
+
+	</metadata>
+
+
+	<manifest>
+
+		<!-- navigation -->
+		<item media-type="application/xhtml+xml" id="toc" href="navigation-documents.xhtml" properties="nav"/>
+
+		<!-- style -->
+		<item media-type="text/css" id="book-style"        href="style/book-style.css"/>
+		<item media-type="text/css" id="style-reset"       href="style/style-reset.css"/>
+<!-- 
+		<item media-type="text/css" id="fixed-layout-jp"   href="style/fixed-layout-jp.css"/>
+		<item media-type="text/css" id="style-standard"    href="style/style-standard.css"/>
+		<item media-type="text/css" id="style-advance"     href="style/style-advance.css"/>
+		<item media-type="text/css" id="style-check"       href="style/style-check.css"/>
+		<item media-type="text/css" id="fixed-layout-jp-2" href="item2/css/fixed-layout-jp.css"/>
+		<item media-type="text/css" id="book-style-2"      href="item2/css/book-style.css"/>
+		<item media-type="text/css" id="style-reset-2"     href="item2/css/style-reset.css"/>
+		<item media-type="text/css" id="style-standard-2"  href="item2/css/style-standard.css"/>
+		<item media-type="text/css" id="style-advance-2"   href="item2/css/style-advance.css"/>
+		<item media-type="text/css" id="style-check-2"     href="item2/css/style-check.css"/>
+ -->
+		<!-- image -->
+		<item media-type="image/jpeg" id="cover" href="image/cover.jpg" properties="cover-image"/>
+
+		<!-- xhtml -->
+		<item media-type="application/xhtml+xml" id="p-cover"     href="xhtml/cover.xhtml"/>
+		<item media-type="application/xhtml+xml" id="p-titlepage" href="xhtml/titlepage.xhtml"/>
+		<item media-type="application/xhtml+xml" id="p-toc"       href="xhtml/toc.xhtml"/>
+		{% for index in range(1, episode+1) %}
+		<item media-type="application/xhtml+xml" id="{{ index }}" href="xhtml/{{ index }}.xhtml"/>
+		{% endfor %}
+
+	</manifest>
+
+
+	<spine page-progression-direction="rtl">
+
+		<itemref linear="yes" idref="p-cover"     properties="rendition:page-spread-center"/>
+		<itemref linear="yes" idref="p-titlepage" properties="page-spread-left"/>
+		<itemref linear="yes" idref="p-toc"       properties="page-spread-right"/>
+		{% for index in range(1, episode+1) %}
+		<itemref linear="yes" idref="{{ index }}" properties="page-spread-right"/>
+		{% endfor %}
+
+	</spine>
+
+</package>

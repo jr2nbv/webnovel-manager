@@ -1,0 +1,27 @@
+{% include 'navigation-documents/header.tpl.xhtml' without context %}
+
+	<nav epub:type="toc" id="toc">
+		<h1>Navigation</h1>
+		<ol>
+			<li><a href="xhtml/cover.xhtml">Cover</a></li>
+			<li><a href="xhtml/titlepage.xhtml">Title</a></li>
+			<li><a href="xhtml/toc.xhtml">TOC</a></li>
+			{% set index = [1] %}
+			{% for subtitle in toc %}
+			<li><a href="xhtml/{{ index[0] }}.xhtml">{{ subtitle }}</a></li>
+				{% set _ = index.append(index.pop() + 1) %}
+			{% endfor %}
+		</ol>
+	</nav>
+
+	<nav epub:type="landmarks" id="guide">
+		<h1>Guide</h1>
+		<ol>
+		<li><a epub:type="cover" href="xhtml/cover.xhtml">表紙</a></li>
+		<li><a epub:type="toc" href="xhtml/toc.xhtml">目次</a></li>
+		<li><a epub:type="bodymatter" href="xhtml/titlepage.xhtml">本編</a></li>
+		</ol>
+	</nav>
+
+</body>
+</html>

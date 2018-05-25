@@ -1,0 +1,9 @@
+{% include 'toc/header.tpl.xhtml' without context %}
+		{% set index = [1] %}
+		{% for value in toc %}
+		<p class="subtitle"><a href = "{{ index[0] }}.xhtml">{{ value }}</a></p>
+			{% set _ = index.append(index.pop() + 1) %}
+		{% endfor %}
+	</div>
+</body>
+</html>
