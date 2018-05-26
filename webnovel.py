@@ -284,23 +284,18 @@ class WebNovel:
 		pre_is_br = False
 		buf = ''
 		for child in text.children:
+			if isinstance(child, Tag):	# strip wrapper tag from novel context
+				if child.name == 'p':	# if tag contains text like serif, land-sentence
+					child = child.contents[0]
 			if isinstance(child, NavigableString) and not str(child) == '\n':
-				buf += re.sub(r'^\n?\u3000?', '', str(child))
+				pars.append(re.sub(r'^\n?\u3000?', '', str(child)))
 				pre_is_br = False
 			elif isinstance(child, Tag):
 				if child.name == 'br':
 					if pre_is_br:
 						pars.append('<br />')
 					else:
-						pars.append(buf)
-					buf = ''
-					pre_is_br = True
-				elif child.name == 'ruby':
-					buf += str(child)
-					pre_is_br = False
-				elif child.name == 'a':	# TODO: リンクじゃない画像も存在するかも
-					buf += '<img src="' + queue.popleft() + '" alt="Artwork" />'
-					pre_is_br = False
+						pre_is_br = True
 		pars.append(buf)	# last sentence
 		return subtitle, pars
 
