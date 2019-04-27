@@ -282,11 +282,13 @@ class WebNovel:
 		# TODO: 前書きと後書きに対応
 		pars = []
 		pre_is_br = False
-		buf = ''
 		for child in text.children:
 			if isinstance(child, Tag):	# strip wrapper tag from novel context
 				if child.name == 'p':	# if tag contains text like serif, land-sentence
-					child = child.contents[0]
+					buf = ''
+					for c in child:
+						buf += str(c)
+					pars.append(re.sub(r'^　', '', buf))
 			if isinstance(child, NavigableString) and not str(child) == '\n':
 				pars.append(re.sub(r'^\n?\u3000?', '', str(child)))
 				pre_is_br = False
@@ -296,7 +298,6 @@ class WebNovel:
 						pars.append('<br />')
 					else:
 						pre_is_br = True
-		pars.append(buf)	# last sentence
 		return subtitle, pars
 
 	def __parse_other_episode(self, soup):
@@ -370,7 +371,15 @@ class WebNovel:
 
 	def __download_file(self, url, path):
 		self.__print_message('Download', url)
-		response = requests.get(url)
+		headers = {
+			'Host': 'ncode.syosetu.com',
+			'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0',
+			'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+			'Accept-Language': 'ja,en-US;q=0.7,en;q=0.3',
+			'Accept-Encoding': 'gzip, deflate',
+			'Upgrade-Insecure-Requests': '1'
+		}
+		response = requests.get(url, headers=headers)
 		with open(path, 'wb') as f:
 			f.write(response.content)
 
